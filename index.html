@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resilient HLS Player</title>
+    <title>#000</title>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Your original CSS remains completely unchanged */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow: hidden; height: 100vh; width: 100vw; }
         .player-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; flex-direction: column; }
@@ -61,7 +60,7 @@
             <div class="error" id="errorMessage"></div>
             <div class="autoplay-overlay" id="autoplayOverlay">
                 <div class="autoplay-message"></div>
-                <button class="autoplay-button" id="autoplayButton"><i class="fas fa-play"></i> Start Streaming</button>
+                <button class="autoplay-button" id="autoplayButton"><i class="fas fa-play"></i> Start</button>
             </div>
             <div class="viewer-count"><i class="fas fa-users"></i> <span id="viewerCount">1.2K</span></div>
             <button class="center-play-btn" id="centerPlayBtn"><i class="fas fa-play"></i></button>
@@ -89,7 +88,7 @@
                     <div class="right-controls">
                         <button class="control-btn" id="fullscreenBtn"><i class="fas fa-expand"></i></button>
                         <button class="control-btn" id="pipBtn" title="Picture-in-Picture"><i class="fas fa-compress-alt"></i></button>
-                        <button class="control-btn" id="qualityBtn" title="Quality Settings"><i class="fas fa-cog"></i></button>
+                        <button class="control-btn" id="qualityBtn" title="Settings"><i class="fas fa-cog"></i></button>
                     </div>
                 </div>
             </div>
@@ -100,73 +99,40 @@
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest" async></script>
-
 <script>
 (function() {
-    // ==========================================
-    // 1. STRICT REFERRER & IFRAME LOCK
-    // ==========================================
-    const ALLOWED_DOMAIN = "forjamaroc.com";
-    let isDomainValid = false;
-
+    const _0x1a = window.atob("Zm9yamFtYXJvYy5jb20="); 
+    let _0x2b = false;
     try {
-        const refUrl = new URL(document.referrer);
-        // Supports forjamaroc.com and www.forjamaroc.com
-        if (refUrl.hostname === ALLOWED_DOMAIN || refUrl.hostname === "www." + ALLOWED_DOMAIN) {
-            isDomainValid = true;
-        }
-    } catch (e) {
-        // Direct access or null referrer defaults to false
+        const _0x3c = new URL(document.referrer);
+        if (_0x3c.hostname === _0x1a || _0x3c.hostname === "www." + _0x1a) { _0x2b = true; }
+    } catch (e) {}
+
+    if (window.top === window.self || !_0x2b) {
+        document.documentElement.innerHTML = window.atob("PGhlYWQ+PHRpdGxlPlZpZGVvIFVuYXZhaWxhYmxlPC90aXRsZT48L2hlYWQ+PGJvZHkgc3R5bGU9ImJhY2tncm91bmQ6IzBhMGEwYTsgY29sb3I6I2ZmZjsgZGlzcGxheTpmbGV4OyBmbGV4LWRpcmVjdGlvbjpjb2x1bW47IGFsaWduLWl0ZW1zOmNlbnRlcjsganVzdGlmeS1jb250ZW50OmNlbnRlcjogaGVpZ2h0OjEwMHZoOyBtYXJnaW46MDsgZm9udC1mYW1pbHk6J1NlZ29lIFVJJywgc2Fucy1zZXJpZjsgdGV4dC1hbGlnbjpjZW50ZXI7Ij48aDEgc3R5bGU9ImZvbnQtc2l6ZTogMjhweDsgbWFyZ2luLWJvdHRvbTogMTBweDsiPlZpZGVvIFVuYXZhaWxhYmxlPC9oMT48cCBzdHlsZT0iY29sb3I6ICNiYmI7IGZvbnQtc2l6ZTogMTZweDsiPlVuYXZhaWxhYmxlLjwvcD48L2JvZHk+");
+        throw new Error();
     }
 
-    // If opened directly (not in iframe) OR unauthorized domain embedded it
-    if (window.top === window.self || !isDomainValid) {
-        document.documentElement.innerHTML = `
-            <head><title>Video Unavailable</title></head>
-            <body style="background:#0a0a0a; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; font-family:'Segoe UI', sans-serif; text-align:center;">
-                <h1 style="font-size: 28px; margin-bottom: 10px;">Video Unavailable</h1>
-                <p style="color: #bbb; font-size: 16px;">This stream is unavailable.</p>
-            </body>
-        `;
-        throw new Error("Direct access or unauthorized embedding prevented.");
-    }
-
-    // ==========================================
-    // 2. DEVTOOLS & NETWORK TAB SHIELD
-    // ==========================================
-    
-    // Mute console output to hide HLS network fetching logs
     console.log = console.warn = console.error = console.info = console.table = function() {};
 
-    // Block right-click and inspection shortcuts
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', e => {
-        if (e.key === 'F12' || 
-           (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) || 
-           (e.ctrlKey && e.key === 'U')) {
-            e.preventDefault();
-            return false;
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey &&['I', 'J', 'C'].includes(e.key)) || (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault(); return false;
         }
     });
 
-    // Timing-based Debugger Trap (Detects if Network Tab / DevTools is opened)
     setInterval(() => {
-        const start = performance.now();
-        debugger; // Freezes if DevTools is open
-        const end = performance.now();
-        if (end - start > 100) {
-            // DevTools lag detected: Destroy player immediately
+        const _0x4d = performance.now();
+        debugger; 
+        const _0x5e = performance.now();
+        if (_0x5e - _0x4d > 100) {
             document.body.innerHTML = '';
-            if (window._hlsInstance) window._hlsInstance.destroy();
+            if (window._0x99a) window._0x99a.destroy();
         }
     }, 1000);
 
-    // ==========================================
-    // 3. DOMAIN-KEYED DECODING
-    // ==========================================
-    
-    // Encrypted payloads (Base64)
-    const _sec =[
+    const _0x6f =[
         'aHR0cHM6Ly9kZG9zLmRkb3Njb21ibzEud29ya2Vycy5kZXYv',
         'aHR0cHM6Ly9zaGlueS1zdW5zZXQtYmE3Zi5yb3lhbC1wYW50aGVyLXZza3oud29ya2Vycy5kZXYv',
         'aHR0cHM6Ly9kZG9zLnJhcmUtdHJvdXQtcWltZy53b3JrZXJzLmRldi8=',
@@ -177,27 +143,17 @@
         'aHR0cHM6Ly9zdHJlYW0tbGIubGl2ZW1lZGlhLm1hL2FmbGFtL2hscy9tYXN0ZXIubTN1OA=='
     ];
 
-    // This function acts as the Domain-Lock Decryptor.
-    function _unlock(index) {
-        let currentDomain = "";
-        try { currentDomain = new URL(document.referrer).hostname.replace('www.', ''); } catch(e){}
-        
-        // If the executing environment isn't your website, it feeds fake URLs
-        // This is fatal for scrapers copying your HTML to their own servers.
-        if(currentDomain !== ALLOWED_DOMAIN) {
-            return "https://stream-failed.local/security-block.m3u8"; 
-        }
-        return window.atob(_sec[index]);
+    function _0x7g(_0x8h) {
+        let _0x9i = "";
+        try { _0x9i = new URL(document.referrer).hostname.replace('www.', ''); } catch(e){}
+        if(_0x9i !== _0x1a) { return window.atob("aHR0cHM6Ly9sb2NhbGhvc3QvZWFkLm0zdTg="); }
+        return window.atob(_0x6f[_0x8h]);
     }
 
-    const WORKER_URLS =[ _unlock(0), _unlock(1), _unlock(2), _unlock(3), _unlock(4), _unlock(5), _unlock(6) ];
-    const TARGET_STREAM_URL = _unlock(7);
-    const MAX_RETRIES = 10;
+    const _0xa1 =[ _0x7g(0), _0x7g(1), _0x7g(2), _0x7g(3), _0x7g(4), _0x7g(5), _0x7g(6) ];
+    const _0xb2 = _0x7g(7);
+    const _0xc3 = 10;
 
-    // ==========================================
-    // 4. PLAYER INITIALIZATION
-    // ==========================================
-    
     document.addEventListener('DOMContentLoaded', function() {
         const video = document.getElementById('videoPlayer');
         const playPauseBtn = document.getElementById('playPause');
@@ -223,110 +179,88 @@
         const viewerCount = document.getElementById('viewerCount');
         
         let controlsTimeout, qualityLevels =[], currentLevel = -1, lastTap = 0, tapTimeout, mousemoveThrottle;
-        window._hlsInstance = null; // Stored globally so the DevTools trap can destroy it
+        window._0x99a = null; 
         
-        let availableWorkers = [...WORKER_URLS];
-        let currentWorkerUrl = '';
-        let retryCount = 0;
+        let _0xd4 = [..._0xa1];
+        let _0xe5 = 0;
 
-        function getNextProxyUrl() {
-            if (availableWorkers.length === 0) {
-                availableWorkers = [...WORKER_URLS];
-            }
-            const randomIndex = Math.floor(Math.random() * availableWorkers.length);
-            const randomWorker = availableWorkers[randomIndex];
-            availableWorkers.splice(randomIndex, 1);
-            currentWorkerUrl = randomWorker;
-            return `${randomWorker}?url=${encodeURIComponent(TARGET_STREAM_URL)}`;
+        function _0xf6() {
+            if (_0xd4.length === 0) { _0xd4 = [..._0xa1]; }
+            const _0xg7 = Math.floor(Math.random() * _0xd4.length);
+            const _0xh8 = _0xd4[_0xg7];
+            _0xd4.splice(_0xg7, 1);
+            return `${_0xh8}?url=${encodeURIComponent(_0xb2)}`;
         }
 
-        function hideError() {
-            errorMessage.style.display = 'none';
-        }
+        function _0xi9() { errorMessage.style.display = 'none'; }
         
-        initPlayer();
+        _0xj0();
         
-        function initPlayer() {
+        function _0xj0() {
             loadingIndicator.style.display = 'flex';
-            if (typeof Hls !== 'undefined') {
-                setupHlsPlayer();
-            } else {
-                const checkHls = setInterval(function() {
-                    if (typeof Hls !== 'undefined') {
-                        clearInterval(checkHls);
-                        setupHlsPlayer();
-                    }
+            if (typeof Hls !== 'undefined') { _0xk1(); } else {
+                const _0xl2 = setInterval(function() {
+                    if (typeof Hls !== 'undefined') { clearInterval(_0xl2); _0xk1(); }
                 }, 50);
             }
         }
         
-        function setupHlsPlayer() {
+        function _0xk1() {
             if (Hls.isSupported()) {
-                window._hlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true, backBufferLength: 30, maxBufferLength: 30, autoStartLoad: false });
-                const hls = window._hlsInstance;
+                window._0x99a = new Hls({ enableWorker: true, lowLatencyMode: true, backBufferLength: 30, maxBufferLength: 30, autoStartLoad: false });
+                const _0xm3 = window._0x99a;
                 
-                const initialProxyUrl = getNextProxyUrl();
-                if (initialProxyUrl) {
-                    hls.loadSource(initialProxyUrl);
-                    hls.attachMedia(video);
-                    hls.startLoad();
+                const _0xn4 = _0xf6();
+                if (_0xn4) {
+                    _0xm3.loadSource(_0xn4);
+                    _0xm3.attachMedia(video);
+                    _0xm3.startLoad();
                 } else {
-                    showError("Stream configuration error.");
-                    return;
+                    _0xo5("Error code: 404"); return;
                 }
                 
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    retryCount = 0; 
-                    hideError(); 
-                    qualityLevels = hls.levels;
+                _0xm3.on(Hls.Events.MANIFEST_PARSED, function() {
+                    _0xe5 = 0; 
+                    _0xi9(); 
+                    qualityLevels = _0xm3.levels;
                     populateQualityMenu();
                     attemptAutoplay();
                 });
                 
-                hls.on(Hls.Events.LEVEL_SWITCHED, function(event, data) {
-                    currentLevel = data.level;
+                _0xm3.on(Hls.Events.LEVEL_SWITCHED, function(e, d) {
+                    currentLevel = d.level;
                     updateQualityMenu();
                 });
 
-                hls.on(Hls.Events.ERROR, function(event, data) {
-                    if (data.fatal) {
-                        switch(data.type) {
+                _0xm3.on(Hls.Events.ERROR, function(e, d) {
+                    if (d.fatal) {
+                        switch(d.type) {
                             case Hls.ErrorTypes.NETWORK_ERROR:
-                                retryCount++;
-                                if (retryCount <= MAX_RETRIES) {
+                                _0xe5++;
+                                if (_0xe5 <= _0xc3) {
                                     loadingIndicator.style.display = 'flex'; 
-                                    const nextProxyUrl = getNextProxyUrl();
-                                    if (nextProxyUrl) {
-                                        hls.loadSource(nextProxyUrl);
-                                        hls.startLoad();
-                                    } else {
-                                        showError('All backup servers failed. Cannot recover.');
-                                    }
-                                } else {
-                                    showError('All backup servers failed after multiple retries. Please reload the page.');
-                                }
+                                    const _0xp6 = _0xf6();
+                                    if (_0xp6) {
+                                        _0xm3.loadSource(_0xp6);
+                                        _0xm3.startLoad();
+                                    } else { _0xo5('Error code: 502'); }
+                                } else { _0xo5('Error code: 503'); }
                                 break;
                             case Hls.ErrorTypes.MEDIA_ERROR:
-                                hls.recoverMediaError();
-                                break;
+                                _0xm3.recoverMediaError(); break;
                             default:
-                                showError('An unrecoverable error occurred. Please reload the page.');
-                                break;
+                                _0xo5('Error code: 500'); break;
                         }
                     }
                 });
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                const randomIndex = Math.floor(Math.random() * WORKER_URLS.length);
-                const randomWorker = WORKER_URLS[randomIndex];
-                video.src = `${randomWorker}?url=${encodeURIComponent(TARGET_STREAM_URL)}`;
+                const _0xq7 = Math.floor(Math.random() * _0xa1.length);
+                video.src = `${_0xa1[_0xq7]}?url=${encodeURIComponent(_0xb2)}`;
                 video.addEventListener('loadedmetadata', attemptAutoplay);
-            } else {
-                showError('Your browser does not support HLS playback.');
-            }
+            } else { _0xo5('Error code: 415'); }
         }
         
-        // STANDARD PLAYER CONTROLS
-        function populateQualityMenu(){while(qualityMenu.children.length>1){qualityMenu.removeChild(qualityMenu.lastChild)}const e=qualityMenu.querySelector('.quality-option[data-quality="auto"]');e&&e.addEventListener("click",()=>setQuality("auto"));const t=document.createDocumentFragment();qualityLevels.forEach((e,l)=>{const n=document.createElement("div");n.className="quality-option",n.dataset.quality=l,n.textContent=`${e.height}p (${Math.round(e.bitrate/1e3)}kbps)`,n.addEventListener("click",()=>setQuality(l)),t.appendChild(n)}),qualityMenu.appendChild(t),updateQualityMenu()}function updateQualityMenu(){const e=qualityMenu.querySelectorAll(".quality-option");e.forEach(e=>{const t=e.dataset.quality,l="auto"===t&&-1===currentLevel,n=parseInt(t)===currentLevel;l||n?e.classList.add("active"):e.classList.remove("active")})}function setQuality(e){window._hlsInstance&&(window._hlsInstance.currentLevel="auto"===e?-1:e,currentLevel=window._hlsInstance.currentLevel,updateQualityMenu(),qualityMenu.classList.remove("visible"))}function attemptAutoplay(){loadingIndicator.style.display="none";const e=video.play();void 0!==e&&e.then(()=>{autoplayOverlay.classList.add("hidden"),setTimeout(()=>{video.muted=!1,updateVolumeIcon()},1e3)}).catch(e=>{autoplayOverlay.classList.remove("hidden")})}autoplayButton.addEventListener("click",function(){video.play().then(()=>{autoplayOverlay.classList.add("hidden"),video.muted=!1,updateVolumeIcon()}).catch(e=>{showError("Unable to play stream. Please try again.")})}),document.addEventListener("mousemove",function(){mousemoveThrottle||(mousemoveThrottle=setTimeout(function(){controls.classList.remove("hidden"),controlsContainer.style.opacity="1",clearTimeout(controlsTimeout),controlsTimeout=setTimeout(function(){video.paused||(controls.classList.add("hidden"),controlsContainer.style.opacity="0",qualityMenu.classList.remove("visible"))},3e3),mousemoveThrottle=null},100))}),qualityBtn.addEventListener("click",function(e){e.stopPropagation(),qualityMenu.classList.toggle("visible")}),document.addEventListener("click",function(e){qualityMenu.contains(e.target)||e.target===qualityBtn||qualityMenu.classList.remove("visible")}),video.addEventListener("play",function(){centerPlayBtn.classList.remove("visible"),playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'}),video.addEventListener("pause",function(){centerPlayBtn.classList.add("visible"),playPauseBtn.innerHTML='<i class="fas fa-play"></i>'}),playPauseBtn.addEventListener("click",togglePlay),centerPlayBtn.addEventListener("click",togglePlay),video.addEventListener("click",handleVideoClick);function handleVideoClick(){const e=(new Date).getTime(),t=e-lastTap;t<300&&t>0?(clearTimeout(tapTimeout),video.paused||video.pause(),lastTap=0):(lastTap=e,tapTimeout=setTimeout(()=>{lastTap=0},300),controls.classList.remove("hidden"),controlsContainer.style.opacity="1",clearTimeout(controlsTimeout),controlsTimeout=setTimeout(function(){video.paused||(controls.classList.add("hidden"),controlsContainer.style.opacity="0")},3e3))}function togglePlay(){video.paused||video.ended?video.play():video.pause()}let lastProgressUpdate=0;video.addEventListener("timeupdate",function(){const e=Date.now();e-lastProgressUpdate>250&&(updateProgress(),lastProgressUpdate=e)}),progressContainer.addEventListener("click",function(e){const t=this.getBoundingClientRect(),l=(e.clientX-t.left)/this.offsetWidth;video.currentTime=l*video.duration});function updateProgress(){const e=video.currentTime/video.duration*100;progress.style.width=e+"%";if(video.buffered.length>0){const t=video.buffered.end(0)/video.duration*100;progressBuffer.style.width=t+"%"}currentTimeEl.textContent=formatTime(video.currentTime)}function formatTime(e){if(isNaN(e))return"0:00";const t=Math.floor(e/60),l=Math.floor(e%60);return t+":"+(l<10?"0":"")+l}volumeBtn.addEventListener("click",toggleMute);function toggleMute(){video.muted=!video.muted,updateVolumeIcon()}volumeSlider.addEventListener("input",function(){video.volume=volumeSlider.value,video.muted=0===video.volume,updateVolumeIcon(),updateVolumeSlider()});function updateVolumeIcon(){0===video.muted||0===video.volume?(volumeBtn.innerHTML='<i class="fas fa-volume-mute"></i>',volumeSlider.value=0):video.volume>.5?volumeBtn.innerHTML='<i class="fas fa-volume-up"></i>':video.volume>0?volumeBtn.innerHTML='<i class="fas fa-volume-down"></i>':volumeBtn.innerHTML='<i class="fas fa-volume-off"></i>',volumeSlider.value=video.volume,updateVolumeSlider()}function updateVolumeSlider(){volumeSliderFill.style.width=(video.muted?0:100*video.volume)+"%"}fullscreenBtn.addEventListener("click",toggleFullscreen);function toggleFullscreen(){document.fullscreenElement?document.exitFullscreen():(document.documentElement.requestFullscreen().catch(e=>{}),fullscreenBtn.innerHTML='<i class="fas fa-compress"></i>')}pipBtn.addEventListener("click",togglePip);function togglePip(){document.pictureInPictureElement?document.exitPictureInPicture().catch(e=>{}):document.pictureInPictureEnabled&&video.requestPictureInPicture().catch(e=>{})}document.pictureInPictureEnabled?(pipBtn.style.display="flex",video.addEventListener("enterpictureinpicture",function(){pipBtn.innerHTML='<i class="fas fa-expand-alt"></i>'}),video.addEventListener("leavepictureinpicture",function(){pipBtn.innerHTML='<i class="fas fa-compress-alt"></i>'})):pipBtn.style.display="none",video.addEventListener("waiting",function(){loadingIndicator.style.display="flex"}),video.addEventListener("playing",function(){loadingIndicator.style.display="none"});function showError(e){errorMessage.textContent=e,errorMessage.style.display="block",loadingIndicator.style.display="none"}updateVolumeIcon(),setInterval(()=>{const e=parseInt(viewerCount.textContent),t=Math.floor(5*Math.random())-2,l=Math.max(100,e+t);viewerCount.textContent=Math.round(l/100)*100>=1e3?(Math.round(l/100)/10).toFixed(1)+"K":l},1e4),window.addEventListener("beforeunload",function(){window._hlsInstance&&window._hlsInstance.destroy()});
+        function populateQualityMenu(){while(qualityMenu.children.length>1){qualityMenu.removeChild(qualityMenu.lastChild)}const e=qualityMenu.querySelector('.quality-option[data-quality="auto"]');e&&e.addEventListener("click",()=>setQuality("auto"));const t=document.createDocumentFragment();qualityLevels.forEach((e,l)=>{const n=document.createElement("div");n.className="quality-option",n.dataset.quality=l,n.textContent=`${e.height}p (${Math.round(e.bitrate/1e3)}kbps)`,n.addEventListener("click",()=>setQuality(l)),t.appendChild(n)}),qualityMenu.appendChild(t),updateQualityMenu()}function updateQualityMenu(){const e=qualityMenu.querySelectorAll(".quality-option");e.forEach(e=>{const t=e.dataset.quality,l="auto"===t&&-1===currentLevel,n=parseInt(t)===currentLevel;l||n?e.classList.add("active"):e.classList.remove("active")})}function setQuality(e){window._0x99a&&(window._0x99a.currentLevel="auto"===e?-1:e,currentLevel=window._0x99a.currentLevel,updateQualityMenu(),qualityMenu.classList.remove("visible"))}function attemptAutoplay(){loadingIndicator.style.display="none";const e=video.play();void 0!==e&&e.then(()=>{autoplayOverlay.classList.add("hidden"),setTimeout(()=>{video.muted=!1,updateVolumeIcon()},1e3)}).catch(e=>{autoplayOverlay.classList.remove("hidden")})}autoplayButton.addEventListener("click",function(){video.play().then(()=>{autoplayOverlay.classList.add("hidden"),video.muted=!1,updateVolumeIcon()}).catch(e=>{_0xo5("Error code: 403")})}),document.addEventListener("mousemove",function(){mousemoveThrottle||(mousemoveThrottle=setTimeout(function(){controls.classList.remove("hidden"),controlsContainer.style.opacity="1",clearTimeout(controlsTimeout),controlsTimeout=setTimeout(function(){video.paused||(controls.classList.add("hidden"),controlsContainer.style.opacity="0",qualityMenu.classList.remove("visible"))},3e3),mousemoveThrottle=null},100))}),qualityBtn.addEventListener("click",function(e){e.stopPropagation(),qualityMenu.classList.toggle("visible")}),document.addEventListener("click",function(e){qualityMenu.contains(e.target)||e.target===qualityBtn||qualityMenu.classList.remove("visible")}),video.addEventListener("play",function(){centerPlayBtn.classList.remove("visible"),playPauseBtn.innerHTML='<i class="fas fa-pause"></i>'}),video.addEventListener("pause",function(){centerPlayBtn.classList.add("visible"),playPauseBtn.innerHTML='<i class="fas fa-play"></i>'}),playPauseBtn.addEventListener("click",togglePlay),centerPlayBtn.addEventListener("click",togglePlay),video.addEventListener("click",handleVideoClick);function handleVideoClick(){const e=(new Date).getTime(),t=e-lastTap;t<300&&t>0?(clearTimeout(tapTimeout),video.paused||video.pause(),lastTap=0):(lastTap=e,tapTimeout=setTimeout(()=>{lastTap=0},300),controls.classList.remove("hidden"),controlsContainer.style.opacity="1",clearTimeout(controlsTimeout),controlsTimeout=setTimeout(function(){video.paused||(controls.classList.add("hidden"),controlsContainer.style.opacity="0")},3e3))}function togglePlay(){video.paused||video.ended?video.play():video.pause()}let lastProgressUpdate=0;video.addEventListener("timeupdate",function(){const e=Date.now();e-lastProgressUpdate>250&&(updateProgress(),lastProgressUpdate=e)}),progressContainer.addEventListener("click",function(e){const t=this.getBoundingClientRect(),l=(e.clientX-t.left)/this.offsetWidth;video.currentTime=l*video.duration});function updateProgress(){const e=video.currentTime/video.duration*100;progress.style.width=e+"%";if(video.buffered.length>0){const t=video.buffered.end(0)/video.duration*100;progressBuffer.style.width=t+"%"}currentTimeEl.textContent=formatTime(video.currentTime)}function formatTime(e){if(isNaN(e))return"0:00";const t=Math.floor(e/60),l=Math.floor(e%60);return t+":"+(l<10?"0":"")+l}volumeBtn.addEventListener("click",toggleMute);function toggleMute(){video.muted=!video.muted,updateVolumeIcon()}volumeSlider.addEventListener("input",function(){video.volume=volumeSlider.value,video.muted=0===video.volume,updateVolumeIcon(),updateVolumeSlider()});function updateVolumeIcon(){0===video.muted||0===video.volume?(volumeBtn.innerHTML='<i class="fas fa-volume-mute"></i>',volumeSlider.value=0):video.volume>.5?volumeBtn.innerHTML='<i class="fas fa-volume-up"></i>':video.volume>0?volumeBtn.innerHTML='<i class="fas fa-volume-down"></i>':volumeBtn.innerHTML='<i class="fas fa-volume-off"></i>',volumeSlider.value=video.volume,updateVolumeSlider()}function updateVolumeSlider(){volumeSliderFill.style.width=(video.muted?0:100*video.volume)+"%"}fullscreenBtn.addEventListener("click",toggleFullscreen);function toggleFullscreen(){document.fullscreenElement?document.exitFullscreen():(document.documentElement.requestFullscreen().catch(e=>{}),fullscreenBtn.innerHTML='<i class="fas fa-compress"></i>')}pipBtn.addEventListener("click",togglePip);function togglePip(){document.pictureInPictureElement?document.exitPictureInPicture().catch(e=>{}):document.pictureInPictureEnabled&&video.requestPictureInPicture().catch(e=>{})}document.pictureInPictureEnabled?(pipBtn.style.display="flex",video.addEventListener("enterpictureinpicture",function(){pipBtn.innerHTML='<i class="fas fa-expand-alt"></i>'}),video.addEventListener("leavepictureinpicture",function(){pipBtn.innerHTML='<i class="fas fa-compress-alt"></i>'})):pipBtn.style.display="none",video.addEventListener("waiting",function(){loadingIndicator.style.display="flex"}),video.addEventListener("playing",function(){loadingIndicator.style.display="none"});function _0xo5(e){errorMessage.textContent=e,errorMessage.style.display="block",loadingIndicator.style.display="none"}updateVolumeIcon(),setInterval(()=>{const e=parseInt(viewerCount.textContent),t=Math.floor(5*Math.random())-2,l=Math.max(100,e+t);viewerCount.textContent=Math.round(l/100)*100>=1e3?(Math.round(l/100)/10).toFixed(1)+"K":l},1e4),window.addEventListener("beforeunload",function(){window._0x99a&&window._0x99a.destroy()});
     });
 })();
 </script>
